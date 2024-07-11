@@ -1,4 +1,4 @@
-import { Stack } from "expo-router"
+import { Link, Stack } from "expo-router"
 
 export default function ConnectionsLayout() {
   return <Stack>

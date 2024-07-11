@@ -1,7 +1,7 @@
 import '../tamagui-web.css'
 
 import { useEffect } from 'react'
-import { useColorScheme } from 'react-native'
+import { Button, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, useColorScheme } from 'react-native'
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
@@ -40,10 +40,34 @@ export default function RootLayout() {
   return <RootLayoutNav />
 }
 
+const styles = StyleSheet.create({
+  inner: {
+    padding: 24,
+    flex: 1,
+    justifyContent: 'space-around',
+  },
+  header: {
+    fontSize: 36,
+    marginBottom: 48,
+  },
+  textInput: {
+    height: 40,
+    borderColor: '#000000',
+    borderBottomWidth: 1,
+    marginBottom: 36,
+  },
+  btnContainer: {
+    backgroundColor: 'white',
+    marginTop: 12,
+  },
+});
+
+
 function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
+    <KeyboardAvoidingView behavior='padding' style={{ flex: 1 }}>
     <Provider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack initialRouteName='connections'>
@@ -58,5 +82,6 @@ function RootLayoutNav() {
         </Stack>
       </ThemeProvider>
     </Provider>
+    </KeyboardAvoidingView>
   )
 }
