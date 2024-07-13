@@ -9,13 +9,15 @@
     "android": "npx expo start --android",
     "ios": "npx expo start --ios",
     "web": "npx expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "generate-themes": "tamagui generate-themes ./constants/theme-builder.ts ./constants/theme-output.ts"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.17",
+    "@tamagui/cli": "^1.102.1",
     "@tamagui/config": "^1.102.1",
     "@tamagui/lucide-icons": "^1.102.1",
     "@tamagui/toast": "^1.102.1",

@@ -11,7 +11,7 @@ export default function FormTextArea<T extends FieldValues>(props: { label?: str
       control={props.control as any}
       defaultValue={props.defaultValue ?? ''}
       rules={props.rules}
-      render={({ field }) => <TextArea size="$4" {...field} placeholder={props.placeholder} />}
+      render={({ field }) => <TextArea size="$4" onChangeText={field.onChange} onBlur={field.onBlur} value={field.value} placeholder={props.placeholder} />}
       />
     { error?.message ? <ErrorLabel error={error.message as string }/> : null }
   </>

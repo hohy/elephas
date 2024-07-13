@@ -5,6 +5,8 @@ import { create } from 'zustand'
 import Intersperse from "../../ui/intersperse";
 import { useState } from "react";
 import { Modal } from "react-native";
+import FloatingButton from "../../ui/floating-button";
+import { Plus } from '@tamagui/lucide-icons'
 
 export interface Connection {
   id: number, 
@@ -35,13 +37,13 @@ export const useConnectionsStore = create<ConnectionState>((set) => ({
   })}
 ))
 
-function ConnectionsListItem({id, label, environment}: Connection) {
+function ConnectionsListItem(props: {connection: Connection, index: number}) {
   return <YGroup.Item>
-  <ListItem iconAfter={ChevronRight}>
+  <ListItem iconAfter={ChevronRight} enterStyle={{ scale: 1.5, y: 50 * props.index, opacity: 0 }} animation="medium">
      <XStack flex={1} justifyContent="space-between" alignItems="center" width={"100%"}>
-        <SizableText size={"$6"}>{label}</SizableText>
+        <SizableText size={"$6"}>{props.connection.label}</SizableText>
         <SizableText color={"$gray10Dark"} size={"$2"} flexGrow={1} maxWidth={"50%"} numberOfLines={1} paddingLeft={"$3"}>database.zoe-development.aws.very.long.url.com</SizableText>
-        { environment && <XStack borderRadius={"$3"} overflow="hidden"><Text backgroundColor={"green"} padding={"$1.5"} overflow={"hidden"}>{environment}</Text></XStack>}
+        { props.connection.environment && <XStack borderRadius={4} overflow="hidden"><Text backgroundColor={"green"} padding={"$1.5"} overflow={"hidden"}>{props.connection.environment}</Text></XStack>}
       </XStack>
       
     
@@ -55,8 +57,9 @@ export default function ConnectionsList() {
 
   return <YStack display="flex" justifyContent="space-between" height={"100%"} width="100%" maxWidth={600} padding={"$3"}>
       <YGroup separator={<Separator/>}>
-        {connections.map(connection => <ConnectionsListItem key={connection.id} {...connection} />)}
+        {connections.map((connection, index) => <ConnectionsListItem key={connection.id} connection={connection} index={index} />)}
       </YGroup>
-      <Link href="/(connections)/add-new-connection" asChild><Button marginBottom="$4">Add a new connection</Button></Link>
+      {/* <Button marginBottom="$4">Add a new connection</Button> */}
+      <Link href="/(connections)/add-new-connection" asChild><FloatingButton themeInverse><Plus/></FloatingButton></Link>
     </YStack>
 }

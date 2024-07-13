@@ -11,7 +11,7 @@ export default function FormInput<T extends FieldValues>(props: { label?: string
       control={props.control as any}
       defaultValue={props.defaultValue ?? ''}
       rules={props.rules}
-      render={({ field }) => <Input {...field} placeholder={props.placeholder} />}
+      render={({ field }) => <Input onChangeText={field.onChange} onBlur={field.onBlur} value={field.value} placeholder={props.placeholder} />}
       />
     { error?.message ? <ErrorLabel error={error.message as string}/> : null }
   </>

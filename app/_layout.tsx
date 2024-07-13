@@ -1,4 +1,5 @@
 import '../tamagui-web.css'
+import '@tamagui/core/reset.css'
 
 import { useEffect } from 'react'
 import { Button, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, useColorScheme } from 'react-native'
