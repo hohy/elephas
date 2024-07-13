@@ -7,6 +7,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import { Provider } from './Provider'
+import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -68,6 +69,7 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
+    <ActionSheetProvider>
     <KeyboardAvoidingView behavior='padding' style={{ flex: 1 }}>
     <Provider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -84,5 +86,6 @@ function RootLayoutNav() {
       </ThemeProvider>
     </Provider>
     </KeyboardAvoidingView>
+    </ActionSheetProvider>
   )
 }
