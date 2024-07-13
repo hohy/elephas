@@ -20,6 +20,7 @@ interface ConnectionState {
   connections: Connection[]
   addConnection: (connection: {label: string, connectionString: string}) => void
   deleteConnection: (id: number) => void 
+  updateConnection: (connection: Connection) => void
 }
 
 export const useConnectionsStore = create<ConnectionState>((set) => ({
@@ -33,12 +34,15 @@ export const useConnectionsStore = create<ConnectionState>((set) => ({
   ],
   addConnection: (connection) => set(state => {
     console.log({ connection }, 'Adding a new connection to store')
-    const id = state.connections.length + 1
+    const id = state.connections.length > 0 ? Math.max(...state.connections.map(connection => connection.id)) + 1 : 1
     const newConnection = {...connection, id }
     return { connections: [...state.connections, newConnection] }
   }),
   deleteConnection: (id: number) => set(state => {
     return { connections: state.connections.filter(connection => connection.id !== id) }
+  }),
+  updateConnection: (connection) => set(state => {
+    return { connections: state.connections.map(c => c.id === connection.id ? connection : c) }
   })
 }
 ))
@@ -66,7 +70,7 @@ export default function ConnectionsList() {
       <YGroup separator={<Separator/>}>
         {connections.map((connection, index) => <ConnectionsListItem key={connection.id} connection={connection} index={index} />)}
       </YGroup>
-      {/* <Button marginBottom="$4">Add a new connection</Button> */}
+      <Link href="/(connections)/2" asChild><Button marginBottom="$4">Edit connection</Button></Link>
       <Link href="/(connections)/add-new-connection" asChild><FloatingButton themeInverse><Plus/></FloatingButton></Link>
     </YStack>
 }

@@ -21,5 +21,15 @@ export default function ConnectionsLayout() {
         }
       }
     />
+    <Stack.Screen
+      name="[edit-connection]"
+      options={
+        {
+          title: 'Edit connection',
+          headerShown: true,
+          presentation: 'modal',
+        }
+      }
+    />
   </Stack>
 }

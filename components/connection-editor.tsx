@@ -43,7 +43,7 @@ export default function ConnectionEditor(props: { connection?: Connection, saveC
               required: 'Connection string is required'
             }} 
           />
-          <FormInput label="Environment" name="environment" defaultValue={props.connection?.label ?? ''} placeholder="Local" control={control} />
+          <FormInput label="Environment" name="environment" defaultValue={props.connection?.environment ?? ''} placeholder="Local" control={control} />
       </YStack>
       </ScrollView>
       <XStack gap="$2" width={"100%"} display="flex">

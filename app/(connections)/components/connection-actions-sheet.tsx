@@ -1,5 +1,6 @@
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { useConnectionsStore } from "..";
+import { router } from "expo-router";
 
 export default function useConnectionActionSheet(connectionId: number) {
   const { showActionSheetWithOptions } = useActionSheet()
@@ -23,6 +24,7 @@ export default function useConnectionActionSheet(connectionId: number) {
             break
           case 1:
             // show edit modal
+            router.push(`/(connections)/${connectionId}`)
             break
           case destructiveButtonIndex:
             deleteConnection(connectionId)
