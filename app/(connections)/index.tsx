@@ -19,6 +19,7 @@ export interface Connection {
 interface ConnectionState {
   connections: Connection[]
   addConnection: (connection: {label: string, connectionString: string}) => void
+  deleteConnection: (id: number) => void 
 }
 
 export const useConnectionsStore = create<ConnectionState>((set) => ({
@@ -35,7 +36,11 @@ export const useConnectionsStore = create<ConnectionState>((set) => ({
     const id = state.connections.length + 1
     const newConnection = {...connection, id }
     return { connections: [...state.connections, newConnection] }
-  })}
+  }),
+  deleteConnection: (id: number) => set(state => {
+    return { connections: state.connections.filter(connection => connection.id !== id) }
+  })
+}
 ))
 
 function ConnectionsListItem(props: {connection: Connection, index: number}) {

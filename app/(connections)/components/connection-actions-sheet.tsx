@@ -1,10 +1,13 @@
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import { useConnectionsStore } from "..";
 
 export default function useConnectionActionSheet(connectionId: number) {
   const { showActionSheetWithOptions } = useActionSheet()
+  const { deleteConnection } = useConnectionsStore()
+
   const options = [ 'Connect', 'Edit', 'Delete', 'Cancel' ]
-  const destructiveButtonIndex = 1
-  const cancelButtonIndex = 2
+  const destructiveButtonIndex = 2
+  const cancelButtonIndex = 3
 
   return function showActionSheet() {
     showActionSheetWithOptions(
@@ -22,7 +25,7 @@ export default function useConnectionActionSheet(connectionId: number) {
             // show edit modal
             break
           case destructiveButtonIndex:
-            // show delete confirmation
+            deleteConnection(connectionId)
             break
           case cancelButtonIndex:
             // do nothing
