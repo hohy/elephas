@@ -55,8 +55,8 @@ export function ToastControl() {
       <Link href="/connections-list" asChild>
         <Button mr="$4" bg="$purple8" color="$purple12">
           Connections
-         </Button>
-        </Link>
+        </Button>
+      </Link>
     </YStack>
   )
 }

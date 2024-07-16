@@ -1,18 +1,45 @@
-import { Control, Controller, FieldValues, RegisterOptions } from "react-hook-form";
-import { Label, TextArea } from "tamagui";
-import ErrorLabel from "../error-label";
+import {
+  Control,
+  Controller,
+  FieldValues,
+  RegisterOptions,
+} from 'react-hook-form'
+import { Label, TextArea } from 'tamagui'
+import ErrorLabel from '../error-label'
 
-export default function FormTextArea<T extends FieldValues>(props: { label?: string, name: string, defaultValue: string, placeholder:string, control: Control<T>, rules?: Omit<RegisterOptions<FieldValues, string>, "disabled" | "valueAsNumber" | "valueAsDate" | "setValueAs"> | undefined }) {
+export default function FormTextArea<T extends FieldValues>(props: {
+  label?: string
+  name: string
+  defaultValue: string
+  placeholder: string
+  control: Control<T>
+  rules?:
+    | Omit<
+        RegisterOptions<FieldValues, string>,
+        'disabled' | 'valueAsNumber' | 'valueAsDate' | 'setValueAs'
+      >
+    | undefined
+}) {
   const error = props.control._formState.errors[props.name]
-  return <>
-    { props.label ? <Label htmlFor={props.label}>{props.label}</Label> : null }
-    <Controller 
-      name={props.name}
-      control={props.control as any}
-      defaultValue={props.defaultValue ?? ''}
-      rules={props.rules}
-      render={({ field }) => <TextArea size="$4" onChangeText={field.onChange} onBlur={field.onBlur} value={field.value} placeholder={props.placeholder} />}
+  return (
+    <>
+      {props.label ? <Label htmlFor={props.label}>{props.label}</Label> : null}
+      <Controller
+        name={props.name}
+        control={props.control as any}
+        defaultValue={props.defaultValue ?? ''}
+        rules={props.rules}
+        render={({ field }) => (
+          <TextArea
+            size="$4"
+            onChangeText={field.onChange}
+            onBlur={field.onBlur}
+            value={field.value}
+            placeholder={props.placeholder}
+          />
+        )}
       />
-    { error?.message ? <ErrorLabel error={error.message as string }/> : null }
-  </>
+      {error?.message ? <ErrorLabel error={error.message as string} /> : null}
+    </>
+  )
 }

@@ -2,12 +2,26 @@ import '../tamagui-web.css'
 import '@tamagui/core/reset.css'
 
 import { useEffect } from 'react'
-import { Button, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, useColorScheme } from 'react-native'
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import {
+  Button,
+  Keyboard,
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+  useColorScheme,
+} from 'react-native'
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import { Provider } from './Provider'
-import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export {
@@ -63,32 +77,31 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 12,
   },
-});
-
+})
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-    <ActionSheetProvider>
-    <KeyboardAvoidingView behavior='padding' style={{ flex: 1 }}>
-    <Provider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack initialRouteName='connections'>
-          <Stack.Screen
-            name="(connections)"
-            options={
-              {
-                headerShown: false,
-              }
-            }
-          />
-        </Stack>
-      </ThemeProvider>
-    </Provider>
-    </KeyboardAvoidingView>
-    </ActionSheetProvider>
+      <ActionSheetProvider>
+        <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+          <Provider>
+            <ThemeProvider
+              value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+            >
+              <Stack initialRouteName="connections">
+                <Stack.Screen
+                  name="(connections)"
+                  options={{
+                    headerShown: false,
+                  }}
+                />
+              </Stack>
+            </ThemeProvider>
+          </Provider>
+        </KeyboardAvoidingView>
+      </ActionSheetProvider>
     </GestureHandlerRootView>
   )
 }

@@ -1,3 +1,3 @@
-import ConnectionEditor from "../../components/connection-editor";
+import ConnectionEditor from '../../components/connection-editor'
 
 export default ConnectionEditor
