@@ -70,7 +70,6 @@ export default function ConnectionsList() {
       <YGroup separator={<Separator/>}>
         {connections.map((connection, index) => <ConnectionsListItem key={connection.id} connection={connection} index={index} />)}
       </YGroup>
-      <Link href="/(connections)/2" asChild><Button marginBottom="$4">Edit connection</Button></Link>
       <Link href="/(connections)/add-new-connection" asChild><FloatingButton themeInverse><Plus/></FloatingButton></Link>
     </YStack>
 }
