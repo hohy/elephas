@@ -8,6 +8,7 @@ import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import { Provider } from './Provider'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -69,6 +70,7 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
     <ActionSheetProvider>
     <KeyboardAvoidingView behavior='padding' style={{ flex: 1 }}>
     <Provider>
@@ -87,5 +89,6 @@ function RootLayoutNav() {
     </Provider>
     </KeyboardAvoidingView>
     </ActionSheetProvider>
+    </GestureHandlerRootView>
   )
 }

@@ -1,6 +1,6 @@
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import { useConnectionsStore } from "..";
 import { router } from "expo-router";
+import { useConnectionsStore } from "../hooks/conections-store";
 
 export default function useConnectionActionSheet(connectionId: number) {
   const { showActionSheetWithOptions } = useActionSheet()
