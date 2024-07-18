@@ -1,3 +1,3 @@
-import ConnectionEditor from '../../components/connection-editor'
+import EditConnectionScreen from '../../modules/connections/screens/edit-connection'
 
-export default ConnectionEditor
+export default EditConnectionScreen
