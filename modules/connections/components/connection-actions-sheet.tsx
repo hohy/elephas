@@ -2,7 +2,7 @@ import { useActionSheet } from '@expo/react-native-action-sheet'
 import { router } from 'expo-router'
 import { useConnectionsStore } from '../hooks/conections-store'
 
-export default function useConnectionActionSheet(connectionId: number) {
+export default function useConnectionActionSheet(connectionId: string) {
   const { showActionSheetWithOptions } = useActionSheet()
   const { deleteConnection } = useConnectionsStore()
 
