@@ -1,4 +1,5 @@
 import { ConnectionStringParser } from 'connection-string-parser'
+import { ConnectionParams } from '../../expo-postgres-client-kit/src/ExpoPostgresClientKit.types'
 
 const connectionStringParser = new ConnectionStringParser({
   scheme: 'postgres',
@@ -6,12 +7,18 @@ const connectionStringParser = new ConnectionStringParser({
   username: '',
 })
 
-export function useConnectionString(connectionString: string) {
+export function useConnectionString(
+  connectionString: string,
+): ConnectionParams | null {
   try {
     const connection = connectionStringParser.parse(connectionString ?? '')
-    return connection
-  } catch (error) {
-    // console.error(error)
-  }
+    return {
+      host: connection.hosts[0].host,
+      port: connection.hosts[0].port ?? 5432,
+      database: connection.endpoint ?? 'postgres',
+      username: connection.username,
+      password: connection.password,
+    }
+  } catch (error) {}
   return null
 }

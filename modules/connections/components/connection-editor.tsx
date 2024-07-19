@@ -18,6 +18,9 @@ import FormTextArea from '../../../ui/hook-form/text-area'
 import { Keyboard } from 'react-native'
 import { Connection } from '../hooks/conections-store'
 import ConnectionDetail from './connection-detail'
+import { testConnectionAsync } from '../../expo-postgres-client-kit'
+import { ConnectionParams } from '../../expo-postgres-client-kit/src/ExpoPostgresClientKit.types'
+import { useConnectionString } from '../hooks/use-connection-string'
 
 export interface ConnectionFormValues {
   id?: string
@@ -93,7 +96,18 @@ export default function ConnectionEditor(props: {
         </YStack>
       </ScrollView>
       <XStack gap="$2" width={'100%'} display="flex">
-        <Button flexGrow={2}>Test</Button>
+        <Button
+          flexGrow={2}
+          onPress={async () => {
+            const connection = useConnectionString(getValues().connectionString)
+            if (connection) {
+              const result = await testConnectionAsync(connection)
+              alert(JSON.stringify(result))
+            }
+          }}
+        >
+          Test
+        </Button>
         <Button flexGrow={3} onPress={handleSubmit(onSubmit)} themeInverse>
           Save connection
         </Button>

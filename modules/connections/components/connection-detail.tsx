@@ -1,7 +1,7 @@
 import { ListItem, Separator, Text, XStack, YGroup } from 'tamagui'
 import { useConnectionString } from '../hooks/use-connection-string'
 
-function KeyValueListItem(props: { label: string; value: string }) {
+function KeyValueListItem(props: { label: string; value?: string }) {
   return (
     <YGroup.Item>
       <ListItem>
@@ -19,24 +19,10 @@ export default function ConnectionDetail(props: { connectionString: string }) {
 
   return (
     <YGroup separator={<Separator />}>
-      <KeyValueListItem
-        label="Host"
-        value={
-          connection?.hosts && connection.hosts.length > 0
-            ? connection.hosts[0].host
-            : ''
-        }
-      />
-      <KeyValueListItem
-        label="Port"
-        value={
-          connection?.hosts && connection.hosts.length > 0
-            ? (connection.hosts[0].port?.toString() ?? '')
-            : ''
-        }
-      />
-      <KeyValueListItem label="Username" value={connection?.username ?? ''} />
-      <KeyValueListItem label="Database" value={connection?.endpoint ?? ''} />
+      <KeyValueListItem label="Host" value={connection?.host} />
+      <KeyValueListItem label="Port" value={connection?.port?.toString()} />
+      <KeyValueListItem label="Username" value={connection?.username} />
+      <KeyValueListItem label="Database" value={connection?.database} />
     </YGroup>
   )
 }
