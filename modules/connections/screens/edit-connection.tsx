@@ -3,39 +3,48 @@ import { useConnectionsStore } from '../hooks/conections-store'
 import useKeyboardVisible from '../../../ui/keyboard-visible-hook'
 import ConnectionEditor, {
   ConnectionFormValues,
-} from '../../../components/connection-editor'
+} from '../components/connection-editor'
 import ModalKeyboardAvoidingView from '../../../ui/modal-keyboard-avoiding-view'
 import { View } from 'tamagui'
+import { z } from 'zod'
+import { Text } from 'tamagui'
+
+const connectionSchema = z.string().uuid()
+const asConnectionId = connectionSchema.parse
 
 export default function EditConnectionScreen() {
-  const connectionId = parseInt(
-    useLocalSearchParams()['edit-connection'] as string,
-  )
+  const connectionIdParam = useLocalSearchParams()['edit-connection']
+  try {
+    const connectionId = asConnectionId(connectionIdParam)
 
-  const updateConnection = useConnectionsStore(
-    (state) => state.updateConnection,
-  )
-  const connections = useConnectionsStore((state) => state.connections)
-  const [keyboardVisible] = useKeyboardVisible()
+    const updateConnection = useConnectionsStore(
+      (state) => state.updateConnection,
+    )
+    const connections = useConnectionsStore((state) => state.connections)
+    const [keyboardVisible] = useKeyboardVisible()
 
-  const connection = connections.find((c) => c.id === connectionId)
+    const connection = connections.find((c) => c.id === connectionId)
 
-  function saveConnection(update: ConnectionFormValues) {
-    updateConnection({ id: connectionId, ...update })
+    function saveConnection(update: ConnectionFormValues) {
+      updateConnection({ ...update, id: connectionId })
+    }
+
+    return (
+      <ModalKeyboardAvoidingView>
+        <View
+          padding={'$3'}
+          height={'100%'}
+          paddingBottom={keyboardVisible ? '$3' : '$7'}
+        >
+          <ConnectionEditor
+            connection={connection}
+            saveConnection={saveConnection}
+          />
+        </View>
+      </ModalKeyboardAvoidingView>
+    )
+  } catch (error) {
+    console.error(error)
+    return <Text>{`Connection id ${connectionIdParam}`}</Text>
   }
-
-  return (
-    <ModalKeyboardAvoidingView>
-      <View
-        padding={'$3'}
-        height={'100%'}
-        paddingBottom={keyboardVisible ? '$3' : '$7'}
-      >
-        <ConnectionEditor
-          connection={connection}
-          saveConnection={saveConnection}
-        />
-      </View>
-    </ModalKeyboardAvoidingView>
-  )
 }

@@ -6892,6 +6892,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"connection-string-parser@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "connection-string-parser@npm:1.0.4"
+  dependencies:
+    tslib: "npm:^2.0.0"
+  checksum: 25ee534bfb608f278c793153e01cd4f9537399f6dac7f89b908d6059172111926f9a2e6ed21043e5bcc87151f6ff912d815146b11bb940d79f111931e874f8fc
+  languageName: node
+  linkType: hard
+
 "consola@npm:^3.2.3":
   version: 3.2.3
   resolution: "consola@npm:3.2.3"
@@ -8190,6 +8199,7 @@ __metadata:
     "@types/react-native": "npm:^0.73.0"
     babel-preset-expo: "npm:^11.0.6"
     burnt: "npm:^0.12.2"
+    connection-string-parser: "npm:^1.0.4"
     expo: "npm:~51.0.9"
     expo-crypto: "npm:~13.0.2"
     expo-font: "npm:~12.0.6"
@@ -8213,6 +8223,7 @@ __metadata:
     react-native-web: "npm:^0.19.12"
     tamagui: "npm:^1.102.1"
     typescript: "npm:^5.5.2"
+    zod: "npm:^3.23.8"
     zustand: "npm:^4.5.4"
   languageName: unknown
   linkType: soft
@@ -15576,6 +15587,13 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.23.8":
+  version: 3.23.8
+  resolution: "zod@npm:3.23.8"
+  checksum: 846fd73e1af0def79c19d510ea9e4a795544a67d5b34b7e1c4d0425bf6bfd1c719446d94cdfa1721c1987d891321d61f779e8236fde517dc0e524aa851a6eff1
   languageName: node
   linkType: hard
 

@@ -11,15 +11,16 @@ import {
   YStack,
 } from 'tamagui'
 import { useForm, Controller } from 'react-hook-form'
-import FormInput from '../ui/hook-form/input'
+import FormInput from '../../../ui/hook-form/input'
 import { router } from 'expo-router'
-import ErrorLabel from '../ui/error-label'
-import FormTextArea from '../ui/hook-form/text-area'
+import ErrorLabel from '../../../ui/error-label'
+import FormTextArea from '../../../ui/hook-form/text-area'
 import { Keyboard } from 'react-native'
-import { Connection } from '../modules/connections/hooks/conections-store'
+import { Connection } from '../hooks/conections-store'
+import ConnectionDetail from './connection-detail'
 
 export interface ConnectionFormValues {
-  id?: number
+  id?: string
   label: string
   environment?: string
   connectionString: string
@@ -52,7 +53,7 @@ export default function ConnectionEditor(props: {
       onPress={Keyboard.dismiss}
     >
       <ScrollView>
-        <YStack flexShrink={1} paddingBottom="$5">
+        <YStack flexShrink={1} paddingBottom="$5" gap="$3">
           <FormInput
             label="Name of connection"
             name="label"
@@ -82,6 +83,12 @@ export default function ConnectionEditor(props: {
             defaultValue={props.connection?.environment ?? ''}
             placeholder="Local"
             control={control}
+          />
+          <Separator />
+          <ConnectionDetail
+            connectionString={
+              getValues().connectionString ?? props.connection?.connectionString
+            }
           />
         </YStack>
       </ScrollView>
