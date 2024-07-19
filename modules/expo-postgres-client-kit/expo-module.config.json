@@ -1,0 +1,15 @@
+{
+  "platforms": [
+    "ios"
+  ],
+  "ios": {
+    "modules": [
+      "ExpoPostgresClientKitModule"
+    ]
+  },
+  "android": {
+    "modules": [
+      "expo.modules.postgresclientkit.ExpoPostgresClientKitModule"
+    ]
+  }
+}
