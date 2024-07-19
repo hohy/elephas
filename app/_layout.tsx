@@ -23,6 +23,7 @@ import { SplashScreen, Stack } from 'expo-router'
 import { Provider } from './Provider'
 import { ActionSheetProvider } from '@expo/react-native-action-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -79,29 +80,33 @@ const styles = StyleSheet.create({
   },
 })
 
+const queryClient = new QueryClient()
+
 function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ActionSheetProvider>
-        <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-          <Provider>
-            <ThemeProvider
-              value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-            >
-              <Stack initialRouteName="connections">
-                <Stack.Screen
-                  name="(connections)"
-                  options={{
-                    headerShown: false,
-                  }}
-                />
-              </Stack>
-            </ThemeProvider>
-          </Provider>
-        </KeyboardAvoidingView>
-      </ActionSheetProvider>
-    </GestureHandlerRootView>
+    <QueryClientProvider client={queryClient}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ActionSheetProvider>
+          <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+            <Provider>
+              <ThemeProvider
+                value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+              >
+                <Stack initialRouteName="connections">
+                  <Stack.Screen
+                    name="(connections)"
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                </Stack>
+              </ThemeProvider>
+            </Provider>
+          </KeyboardAvoidingView>
+        </ActionSheetProvider>
+      </GestureHandlerRootView>
+    </QueryClientProvider>
   )
 }

@@ -4,7 +4,7 @@ import {
   FieldValues,
   RegisterOptions,
 } from 'react-hook-form'
-import { Input, Label } from 'tamagui'
+import { Input, Label, YStack } from 'tamagui'
 import ErrorLabel from '../error-label'
 
 export default function FormInput<T extends FieldValues>(props: {
@@ -22,7 +22,7 @@ export default function FormInput<T extends FieldValues>(props: {
 }) {
   const error = props.control._formState.errors[props.name]
   return (
-    <>
+    <YStack>
       {props.label ? <Label htmlFor={props.label}>{props.label}</Label> : null}
       <Controller
         name={props.name}
@@ -39,6 +39,6 @@ export default function FormInput<T extends FieldValues>(props: {
         )}
       />
       {error?.message ? <ErrorLabel error={error.message as string} /> : null}
-    </>
+    </YStack>
   )
 }
