@@ -25,18 +25,7 @@ interface ConnectionsState {
 export const useConnectionsStore = create(
   persist<ConnectionsState>(
     (set, get) => ({
-      connections: [
-        { id: '1', label: 'Zoe', environment: 'PRODUCTION' },
-        { id: '2', label: 'Zoe', environment: 'STAGING' },
-        { id: '3', label: 'Surge' },
-        { id: '4', label: 'Surge', environment: 'DEVELOPMENT' },
-        { id: '5', label: 'Local' },
-        {
-          id: '6',
-          label: 'Some long connection name',
-          environment: 'DEVELOPMENT',
-        },
-      ],
+      connections: [],
       addConnection: async (connection) => {
         const id = randomUUID()
         await SecureStore.setItemAsync(
@@ -80,7 +69,7 @@ export const useConnectionsStore = create(
             )
             return {
               ...connection,
-              connectionString: connectionString ?? void 0,
+              connectionString: connectionString ?? undefined,
             }
           }),
         )
@@ -93,6 +82,7 @@ export const useConnectionsStore = create(
       partialize: (state) => ({
         ...state,
         connections: state.connections.map((connection) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { connectionString, ...rest } = connection
           return rest
         }),

@@ -1,5 +1,5 @@
 import { ConnectionStringParser } from 'connection-string-parser'
-import { ConnectionParams } from '../../expo-postgres-client-kit/src/ExpoPostgresClientKit.types'
+import { ConnectionParams } from '../modules/expo-postgres-client-kit/src/ExpoPostgresClientKit.types'
 
 const connectionStringParser = new ConnectionStringParser({
   scheme: 'postgres',
@@ -7,7 +7,7 @@ const connectionStringParser = new ConnectionStringParser({
   username: '',
 })
 
-export function useConnectionString(
+export function parseConnectionString(
   connectionString: string,
 ): ConnectionParams | null {
   try {

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import {
   KeyboardAvoidingViewProps,
-  useWindowDimensions,
   KeyboardAvoidingView as RNKeyboardAvoidingView,
   StyleSheet,
   Platform,
@@ -29,9 +28,8 @@ const useFullScreenModalHeaderHeight = () => {
 export default function ModalKeyboardAvoidingView({
   children,
 }: KeyboardAvoidingViewProps) {
-  const [viewHeight, setViewHeight] = useState(0)
-  const dim = useWindowDimensions()
-  const { bottom } = useSafeAreaInsets()
+  const [, setViewHeight] = useState(0)
+
   const keyboardVerticalOffset = useFullScreenModalHeaderHeight()
 
   return (

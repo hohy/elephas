@@ -1,5 +1,5 @@
 import { ListItem, Separator, Text, XStack, YGroup } from 'tamagui'
-import { useConnectionString } from '../hooks/use-connection-string'
+import { parseConnectionString } from '../../../utils/connection-string-parser'
 
 function KeyValueListItem(props: { label: string; value?: string }) {
   return (
@@ -15,7 +15,7 @@ function KeyValueListItem(props: { label: string; value?: string }) {
 }
 
 export default function ConnectionDetail(props: { connectionString: string }) {
-  const connection = useConnectionString(props.connectionString)
+  const connection = parseConnectionString(props.connectionString)
 
   return (
     <YGroup separator={<Separator />}>

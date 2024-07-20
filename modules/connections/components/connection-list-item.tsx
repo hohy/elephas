@@ -9,10 +9,21 @@ import {
 } from 'tamagui'
 import { Connection } from '../hooks/conections-store'
 import useConnectionActionSheet from './connection-actions-sheet'
-import { ChevronRight, Delete, XCircle } from '@tamagui/lucide-icons'
+import { ChevronRight, XCircle } from '@tamagui/lucide-icons'
 import { Swipeable } from 'react-native-gesture-handler'
-import { Animated } from 'react-native'
+import { Animated, StyleSheet } from 'react-native'
 import { useConnectionsStore } from '../hooks/conections-store'
+
+const styles = StyleSheet.create({
+  animatedView: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+  },
+  swipeable: { flex: 1, height: '100%' },
+})
+const listItemEnterStyle = { scale: 1.5, y: 50, opacity: 0 }
 
 function renderRightActions(handlePress: () => void) {
   return (progres, dragX) => {
@@ -28,10 +39,7 @@ function renderRightActions(handlePress: () => void) {
           style={[
             {
               transform: [{ scale: trans }],
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
+              ...styles.animatedView,
             },
           ]}
         >
@@ -60,7 +68,7 @@ export default function ConnectionsListItem(props: {
   return (
     <YGroup.Item key={props.connection.id}>
       <ListItem
-        enterStyle={{ scale: 1.5, y: 50 * props.index, opacity: 0 }}
+        enterStyle={listItemEnterStyle}
         animation="medium"
         onLongPress={showConnectionActions}
         padding={0}
@@ -70,7 +78,7 @@ export default function ConnectionsListItem(props: {
             deleteConnection(props.connection.id),
           )}
           friction={2}
-          containerStyle={{ flex: 1, height: '100%' }}
+          containerStyle={styles.swipeable}
         >
           <XStack
             justifyContent="space-between"

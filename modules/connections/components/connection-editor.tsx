@@ -1,27 +1,11 @@
-import {
-  Button,
-  Form,
-  Input,
-  Label,
-  ScrollView,
-  Select,
-  Separator,
-  Spinner,
-  TextArea,
-  XStack,
-  YStack,
-} from 'tamagui'
-import { useForm, Controller } from 'react-hook-form'
+import { Button, ScrollView, Separator, Spinner, XStack, YStack } from 'tamagui'
+import { useForm } from 'react-hook-form'
 import FormInput from '../../../ui/hook-form/input'
 import { router } from 'expo-router'
-import ErrorLabel from '../../../ui/error-label'
 import FormTextArea from '../../../ui/hook-form/text-area'
 import { Keyboard } from 'react-native'
 import { Connection } from '../hooks/conections-store'
 import ConnectionDetail from './connection-detail'
-import { testConnectionAsync } from '../../expo-postgres-client-kit'
-import { ConnectionParams } from '../../expo-postgres-client-kit/src/ExpoPostgresClientKit.types'
-import { useConnectionString } from '../hooks/use-connection-string'
 import useConnectionTest from '../hooks/use-connection-test'
 import * as Burnt from 'burnt'
 
@@ -36,19 +20,14 @@ export default function ConnectionEditor(props: {
   connection?: Connection
   saveConnection: (connection: ConnectionFormValues) => void
 }) {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-    getValues,
-    watch,
-  } = useForm<ConnectionFormValues>({
-    defaultValues: {
-      label: props.connection?.label ?? '',
-      environment: props.connection?.environment ?? '',
-      connectionString: props.connection?.connectionString ?? '',
-    },
-  })
+  const { handleSubmit, control, getValues, watch } =
+    useForm<ConnectionFormValues>({
+      defaultValues: {
+        label: props.connection?.label ?? '',
+        environment: props.connection?.environment ?? '',
+        connectionString: props.connection?.connectionString ?? '',
+      },
+    })
 
   const watchConnectionString = watch('connectionString')
 
@@ -125,7 +104,7 @@ export default function ConnectionEditor(props: {
         <Button
           flexGrow={2}
           onPress={onConnectionTest}
-          icon={isPendingConnectionTest ? () => <Spinner /> : undefined}
+          icon={isPendingConnectionTest ? <Spinner /> : undefined}
           disabled={isPendingConnectionTest}
         >
           {isPendingConnectionTest ? '' : 'Test'}

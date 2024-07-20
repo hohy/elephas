@@ -2,17 +2,7 @@ import '../tamagui-web.css'
 import '@tamagui/core/reset.css'
 
 import { useEffect } from 'react'
-import {
-  Button,
-  Keyboard,
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableWithoutFeedback,
-  View,
-  useColorScheme,
-} from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, useColorScheme } from 'react-native'
 import {
   DarkTheme,
   DefaultTheme,
@@ -59,24 +49,11 @@ export default function RootLayout() {
 }
 
 const styles = StyleSheet.create({
-  inner: {
-    padding: 24,
+  keyboardAvoidingView: {
     flex: 1,
-    justifyContent: 'space-around',
   },
-  header: {
-    fontSize: 36,
-    marginBottom: 48,
-  },
-  textInput: {
-    height: 40,
-    borderColor: '#000000',
-    borderBottomWidth: 1,
-    marginBottom: 36,
-  },
-  btnContainer: {
-    backgroundColor: 'white',
-    marginTop: 12,
+  gestureHandlerRoorView: {
+    flex: 1,
   },
 })
 
@@ -87,9 +64,12 @@ function RootLayoutNav() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
+      <GestureHandlerRootView style={styles.gestureHandlerRoorView}>
         <ActionSheetProvider>
-          <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+          <KeyboardAvoidingView
+            behavior="padding"
+            style={styles.keyboardAvoidingView}
+          >
             <Provider>
               <ThemeProvider
                 value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}

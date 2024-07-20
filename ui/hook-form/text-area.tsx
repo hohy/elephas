@@ -25,7 +25,7 @@ export default function FormTextArea<T extends FieldValues>(props: {
       {props.label ? <Label htmlFor={props.label}>{props.label}</Label> : null}
       <Controller
         name={props.name}
-        control={props.control as any}
+        control={props.control as Control}
         rules={props.rules}
         render={({ field }) => (
           <TextArea

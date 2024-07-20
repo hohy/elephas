@@ -1,11 +1,11 @@
 import { useMutation } from '@tanstack/react-query'
 import { testConnectionAsync } from '../../expo-postgres-client-kit'
-import { useConnectionString } from './use-connection-string'
+import { parseConnectionString } from '../../../utils/connection-string-parser'
 
 export default function useConnectionTest() {
   return useMutation({
     mutationFn: async (connectionString: string): Promise<string> => {
-      const connection = useConnectionString(connectionString)
+      const connection = parseConnectionString(connectionString)
       if (connection) {
         const result = await testConnectionAsync(connection)
 

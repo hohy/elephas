@@ -1,6 +1,18 @@
+import { StyleSheet } from 'react-native'
 import { Button } from 'tamagui'
 
 type ButtonProps = React.ComponentProps<typeof Button>
+
+const styles = StyleSheet.create({
+  floatingButton: {
+    position: 'absolute',
+    bottom: 40,
+    right: 20,
+    width: 66,
+    height: 66,
+    borderRadius: 33,
+  },
+})
 
 export default function FloatingButton(props: ButtonProps) {
   return (
@@ -11,14 +23,7 @@ export default function FloatingButton(props: ButtonProps) {
       shadowColor={'$accentBackground'}
       shadowRadius={10}
       shadowOpacity={0.3}
-      style={{
-        position: 'absolute',
-        bottom: 40,
-        right: 20,
-        width: 66,
-        height: 66,
-        borderRadius: 33,
-      }}
+      style={styles.floatingButton}
     />
   )
 }

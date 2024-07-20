@@ -14,37 +14,36 @@ const asConnectionId = connectionSchema.parse
 
 export default function EditConnectionScreen() {
   const connectionIdParam = useLocalSearchParams()['edit-connection']
-  try {
-    const connectionId = asConnectionId(connectionIdParam)
+  const connectionId = asConnectionId(connectionIdParam)
 
-    const updateConnection = useConnectionsStore(
-      (state) => state.updateConnection,
-    )
-    const connections = useConnectionsStore((state) => state.connections)
-    const [keyboardVisible] = useKeyboardVisible()
+  const updateConnection = useConnectionsStore(
+    (state) => state.updateConnection,
+  )
+  const connections = useConnectionsStore((state) => state.connections)
+  const [keyboardVisible] = useKeyboardVisible()
 
-    const connection = connections.find((c) => c.id === connectionId)
+  const connection = connections.find((c) => c.id === connectionId)
 
-    function saveConnection(update: ConnectionFormValues) {
-      updateConnection({ ...update, id: connectionId })
-    }
+  function saveConnection(update: ConnectionFormValues) {
+    updateConnection({ ...update, id: connectionId })
+  }
 
-    return (
-      <ModalKeyboardAvoidingView>
-        <View
-          padding={'$3'}
-          height={'100%'}
-          paddingBottom={keyboardVisible ? '$3' : '$7'}
-        >
-          <ConnectionEditor
-            connection={connection}
-            saveConnection={saveConnection}
-          />
-        </View>
-      </ModalKeyboardAvoidingView>
-    )
-  } catch (error) {
-    console.error(error)
+  if (!connectionId) {
     return <Text>{`Connection id ${connectionIdParam}`}</Text>
   }
+
+  return (
+    <ModalKeyboardAvoidingView>
+      <View
+        padding={'$3'}
+        height={'100%'}
+        paddingBottom={keyboardVisible ? '$3' : '$7'}
+      >
+        <ConnectionEditor
+          connection={connection}
+          saveConnection={saveConnection}
+        />
+      </View>
+    </ModalKeyboardAvoidingView>
+  )
 }
