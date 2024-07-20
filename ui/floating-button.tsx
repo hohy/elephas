@@ -17,7 +17,7 @@ export default function FloatingButton(props: ButtonProps) {
         right: 20,
         width: 66,
         height: 66,
-        borderRadius: '50%',
+        borderRadius: 33,
       }}
     />
   )

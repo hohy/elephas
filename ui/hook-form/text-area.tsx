@@ -10,7 +10,6 @@ import ErrorLabel from '../error-label'
 export default function FormTextArea<T extends FieldValues>(props: {
   label?: string
   name: string
-  defaultValue: string
   placeholder: string
   control: Control<T>
   rules?:
@@ -27,7 +26,6 @@ export default function FormTextArea<T extends FieldValues>(props: {
       <Controller
         name={props.name}
         control={props.control as any}
-        defaultValue={props.defaultValue ?? ''}
         rules={props.rules}
         render={({ field }) => (
           <TextArea
@@ -36,6 +34,8 @@ export default function FormTextArea<T extends FieldValues>(props: {
             onBlur={field.onBlur}
             value={field.value}
             placeholder={props.placeholder}
+            textContentType="URL"
+            keyboardType="visible-password"
           />
         )}
       />

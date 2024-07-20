@@ -10,7 +10,6 @@ import ErrorLabel from '../error-label'
 export default function FormInput<T extends FieldValues>(props: {
   label?: string
   name: string
-  defaultValue: string
   placeholder: string
   control: Control<T>
   rules?:
@@ -27,7 +26,6 @@ export default function FormInput<T extends FieldValues>(props: {
       <Controller
         name={props.name}
         control={props.control as any}
-        defaultValue={props.defaultValue ?? ''}
         rules={props.rules}
         render={({ field }) => (
           <Input

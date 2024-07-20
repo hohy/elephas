@@ -6,6 +6,7 @@ import {
   ScrollView,
   Select,
   Separator,
+  Spinner,
   TextArea,
   XStack,
   YStack,
@@ -22,6 +23,7 @@ import { testConnectionAsync } from '../../expo-postgres-client-kit'
 import { ConnectionParams } from '../../expo-postgres-client-kit/src/ExpoPostgresClientKit.types'
 import { useConnectionString } from '../hooks/use-connection-string'
 import useConnectionTest from '../hooks/use-connection-test'
+import * as Burnt from 'burnt'
 
 export interface ConnectionFormValues {
   id?: string
@@ -39,15 +41,43 @@ export default function ConnectionEditor(props: {
     control,
     formState: { errors },
     getValues,
-  } = useForm<ConnectionFormValues>()
-  console.table(errors)
+    watch,
+  } = useForm<ConnectionFormValues>({
+    defaultValues: {
+      label: props.connection?.label ?? '',
+      environment: props.connection?.environment ?? '',
+      connectionString: props.connection?.connectionString ?? '',
+    },
+  })
+
+  const watchConnectionString = watch('connectionString')
 
   const onSubmit = (data: ConnectionFormValues) => {
     props.saveConnection(data)
     router.back()
   }
 
-  const connectionTest = useConnectionTest()
+  const { mutateAsync: testConnection, isPending: isPendingConnectionTest } =
+    useConnectionTest()
+  const onConnectionTest = async () => {
+    try {
+      await testConnection(getValues().connectionString)
+
+      Burnt.toast({
+        title: 'Successfully connected',
+        message: `to ${getValues().label}`,
+        preset: 'done',
+      })
+    } catch (error) {
+      Burnt.alert({
+        title: 'Unable to connect',
+        message: error.message,
+        preset: 'error',
+        duration: 5000,
+        shouldDismissByTap: true,
+      })
+    }
+  }
 
   return (
     <YStack
@@ -63,7 +93,6 @@ export default function ConnectionEditor(props: {
           <FormInput
             label="Name of connection"
             name="label"
-            defaultValue={props.connection?.label ?? ''}
             placeholder="Untitled server"
             control={control}
             rules={{ required: 'Label is required' }}
@@ -71,7 +100,6 @@ export default function ConnectionEditor(props: {
           <FormTextArea
             label="Connection string"
             name="connectionString"
-            defaultValue={props.connection?.connectionString ?? ''}
             placeholder="postgres://username:password@hostname:port/database"
             control={control}
             rules={{
@@ -86,24 +114,21 @@ export default function ConnectionEditor(props: {
           <FormInput
             label="Environment"
             name="environment"
-            defaultValue={props.connection?.environment ?? ''}
             placeholder="Local"
             control={control}
           />
           <Separator />
-          <ConnectionDetail
-            connectionString={
-              getValues().connectionString ?? props.connection?.connectionString
-            }
-          />
+          <ConnectionDetail connectionString={watchConnectionString} />
         </YStack>
       </ScrollView>
       <XStack gap="$2" width={'100%'} display="flex">
         <Button
           flexGrow={2}
-          onPress={() => connectionTest.mutate(getValues().connectionString)}
+          onPress={onConnectionTest}
+          icon={isPendingConnectionTest ? () => <Spinner /> : undefined}
+          disabled={isPendingConnectionTest}
         >
-          {connectionTest.isPending ? '🔄' : 'Test'}
+          {isPendingConnectionTest ? '' : 'Test'}
         </Button>
         <Button flexGrow={3} onPress={handleSubmit(onSubmit)} themeInverse>
           Save connection

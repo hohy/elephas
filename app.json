@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.hohy.elephas"
     },
     "web": {
       "bundler": "metro",
@@ -43,7 +44,7 @@
         "expo-build-properties",
         {
           "ios": {
-            "deploymentTarget": "13.0"
+            "deploymentTarget": "13.4"
           }
         }
       ]

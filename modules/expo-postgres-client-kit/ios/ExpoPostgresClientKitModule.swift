@@ -69,7 +69,7 @@ public class ExpoPostgresClientKitModule: Module {
             print("Connection test failed: \(String(describing: error))")
             let result = ConnectionTestResult()
             result.success = false
-            result.error = "Connection test failed: \(String(describing: error))"
+            result.error = String(describing: error)
             promise.resolve(result)
             return
         }
