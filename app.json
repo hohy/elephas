@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.hohy.elephas"
@@ -55,7 +57,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "96f5604d-2a48-439b-9ab3-7b13edcaf658"
+        "projectId": "30c792dd-a4c6-4baf-98af-6f8432e689a9"
       }
     },
     "owner": "hohy"

@@ -8,6 +8,8 @@ import { Connection } from '../hooks/conections-store'
 import ConnectionDetail from './connection-detail'
 import useConnectionTest from '../hooks/use-connection-test'
 import * as Burnt from 'burnt'
+import Screen from '../../../ui/screen'
+import ScreenSection from '../../../ui/screen-section'
 
 export interface ConnectionFormValues {
   id?: string
@@ -59,16 +61,13 @@ export default function ConnectionEditor(props: {
   }
 
   return (
-    <YStack
+    <Screen
       display="flex"
       justifyContent="space-between"
-      height="100%"
-      width="100%"
-      maxWidth={600}
       onPress={Keyboard.dismiss}
     >
-      <ScrollView>
-        <YStack flexShrink={1} paddingBottom="$5" gap="$3">
+      <ScreenSection scrollable flexShrink={1}>
+        <YStack paddingBottom="$5" gap="$3">
           <FormInput
             label="Name of connection"
             name="label"
@@ -99,20 +98,22 @@ export default function ConnectionEditor(props: {
           <Separator />
           <ConnectionDetail connectionString={watchConnectionString} />
         </YStack>
-      </ScrollView>
-      <XStack gap="$2" width={'100%'} display="flex">
-        <Button
-          flexGrow={2}
-          onPress={onConnectionTest}
-          icon={isPendingConnectionTest ? <Spinner /> : undefined}
-          disabled={isPendingConnectionTest}
-        >
-          {isPendingConnectionTest ? '' : 'Test'}
-        </Button>
-        <Button flexGrow={3} onPress={handleSubmit(onSubmit)} themeInverse>
-          Save connection
-        </Button>
-      </XStack>
-    </YStack>
+      </ScreenSection>
+      <ScreenSection>
+        <XStack gap="$2" width={'100%'} display="flex">
+          <Button
+            flexGrow={2}
+            onPress={onConnectionTest}
+            icon={isPendingConnectionTest ? <Spinner /> : undefined}
+            disabled={isPendingConnectionTest}
+          >
+            {isPendingConnectionTest ? '' : 'Test'}
+          </Button>
+          <Button flexGrow={3} onPress={handleSubmit(onSubmit)} themeInverse>
+            Save connection
+          </Button>
+        </XStack>
+      </ScreenSection>
+    </Screen>
   )
 }

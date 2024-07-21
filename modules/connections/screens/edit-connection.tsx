@@ -34,11 +34,7 @@ export default function EditConnectionScreen() {
 
   return (
     <ModalKeyboardAvoidingView>
-      <View
-        padding={'$3'}
-        height={'100%'}
-        paddingBottom={keyboardVisible ? '$3' : '$7'}
-      >
+      <View height={'100%'} paddingBottom={keyboardVisible ? '$3' : '$7'}>
         <ConnectionEditor
           connection={connection}
           saveConnection={saveConnection}
