@@ -16,6 +16,9 @@ struct ConnectionParams: Record {
     
     @Field
     var database: String
+    
+    @Field
+    var ssl: Bool
 }
 
 struct ConnectionTestResult: Record {
@@ -38,12 +41,13 @@ public class ExpoPostgresClientKitModule: Module {
             configuration.host = connectionParams.host
             configuration.port = connectionParams.port
             configuration.database = connectionParams.database
-            configuration.ssl = false
+            configuration.ssl = connectionParams.ssl
             if (connectionParams.username != nil) {
                 configuration.user = connectionParams.username!
             }
             if (connectionParams.password != nil) {
-                configuration.credential = .scramSHA256(password: connectionParams.password!)
+//                configuration.credential = .scramSHA256(password: connectionParams.password!)
+                configuration.credential = Credential.md5Password(password: connectionParams.password ?? "")
             }
             
             let connection = try PostgresClientKit.Connection(configuration: configuration)

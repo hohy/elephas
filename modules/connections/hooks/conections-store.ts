@@ -9,6 +9,7 @@ export interface Connection {
   label: string
   environment?: string
   connectionString?: string
+  useSSL: boolean
 }
 
 interface ConnectionsState {
@@ -16,6 +17,7 @@ interface ConnectionsState {
   addConnection: (connection: {
     label: string
     connectionString: string
+    useSSL: boolean
   }) => void
   deleteConnection: (id: string) => void
   updateConnection: (connection: Connection) => void

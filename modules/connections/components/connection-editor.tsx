@@ -10,12 +10,14 @@ import useConnectionTest from '../hooks/use-connection-test'
 import * as Burnt from 'burnt'
 import Screen from '../../../ui/screen'
 import ScreenSection from '../../../ui/screen-section'
+import FormSwitch from '../../../ui/hook-form/switch'
 
 export interface ConnectionFormValues {
   id?: string
   label: string
   environment?: string
   connectionString: string
+  useSSL: boolean
 }
 
 export default function ConnectionEditor(props: {
@@ -28,6 +30,7 @@ export default function ConnectionEditor(props: {
         label: props.connection?.label ?? '',
         environment: props.connection?.environment ?? '',
         connectionString: props.connection?.connectionString ?? '',
+        useSSL: props.connection?.useSSL ?? true,
       },
     })
 
@@ -89,6 +92,7 @@ export default function ConnectionEditor(props: {
               required: 'Connection string is required',
             }}
           />
+          <FormSwitch label="Use SSL" name="useSSL" control={control} />
           <FormInput
             label="Environment"
             name="environment"
@@ -96,7 +100,10 @@ export default function ConnectionEditor(props: {
             control={control}
           />
           <Separator />
-          <ConnectionDetail connectionString={watchConnectionString} />
+          <ConnectionDetail
+            connectionString={watchConnectionString}
+            ssl={watch().useSSL}
+          />
         </YStack>
       </ScreenSection>
       <ScreenSection>

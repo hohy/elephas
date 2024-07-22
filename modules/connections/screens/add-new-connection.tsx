@@ -10,11 +10,7 @@ export default function AddNewConnection() {
 
   return (
     <ModalKeyboardAvoidingView>
-      <View
-        padding={'$3'}
-        height={'100%'}
-        paddingBottom={keyboardVisible ? '$3' : '$7'}
-      >
+      <View height={'100%'} paddingBottom={keyboardVisible ? '$3' : '$7'}>
         <ConnectionEditor saveConnection={addConnection} />
       </View>
     </ModalKeyboardAvoidingView>

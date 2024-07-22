@@ -14,7 +14,10 @@ function KeyValueListItem(props: { label: string; value?: string }) {
   )
 }
 
-export default function ConnectionDetail(props: { connectionString: string }) {
+export default function ConnectionDetail(props: {
+  connectionString: string
+  ssl: boolean
+}) {
   const connection = parseConnectionString(props.connectionString)
 
   return (
@@ -23,6 +26,7 @@ export default function ConnectionDetail(props: { connectionString: string }) {
       <KeyValueListItem label="Port" value={connection?.port?.toString()} />
       <KeyValueListItem label="Username" value={connection?.username} />
       <KeyValueListItem label="Database" value={connection?.database} />
+      <KeyValueListItem label="SSL" value={`${props.ssl}`} />
     </YGroup>
   )
 }

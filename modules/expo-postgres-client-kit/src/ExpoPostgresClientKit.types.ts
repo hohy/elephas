@@ -12,6 +12,7 @@ export type ConnectionParams = {
   database: string
   username?: string
   password?: string
+  ssl?: boolean
 }
 
 export type ConnectionTestResult = {
